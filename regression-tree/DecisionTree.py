@@ -16,6 +16,8 @@ class DecisionTree(object):
         self.left = DecisionTree(left_data)
         self.right = DecisionTree(right_data)
 
+        # del self.data  # Split node does not require to hold all data
+
     def get_criterion(self):
         return self.criterion_index, self.criterion_value
 
@@ -31,7 +33,7 @@ class DecisionTree(object):
     def description(self):
         return f"Length of Data: {len(self.data)}, Criterion Value: {self.criterion_value}, Criterion Index: {self.criterion_index}"
 
-    def find_minimal_node(self, value):
+    def find_minimal_node(self, value, descr=False):
         node = self
 
         while True:
@@ -40,6 +42,10 @@ class DecisionTree(object):
                 return node
 
             if value[crit_index] <= crit_value:
+                if descr:
+                    print("left")
                 node = node.left
             else:
+                if descr:
+                    print("right")
                 node = node.right
